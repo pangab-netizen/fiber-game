@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
+
 <title>Fiber Battle Arena</title>
 
 <link rel="stylesheet" href="style.css">
-
-<script src="/socket.io/socket.io.js"></script>
 
 </head>
 
@@ -15,41 +15,20 @@
 
 <div class="container">
 
-<h1>Fiber Battle Arena</h1>
+<h1>🎮 Fiber Battle Arena</h1>
 
-<h2 id="playerCount">
-Player Online: 0
-</h2>
+<h2 id="question"></h2>
 
-<h2 id="question">
-Apa fungsi OTDR?
-</h2>
-
-<div class="answers">
-
-<button onclick="checkAnswer(true)">
-Mencari gangguan fiber
-</button>
-
-<button onclick="checkAnswer(false)">
-Memotong kabel
-</button>
-
-<button onclick="checkAnswer(false)">
-Mengukur listrik
-</button>
-
-<button onclick="checkAnswer(false)">
-Menyambung fiber
-</button>
-
-</div>
+<div class="answers"></div>
 
 <h2 id="result"></h2>
+
+<h2 id="score"></h2>
 
 </div>
 
 <script src="script.js"></script>
 
 </body>
+
 </html>

@@ -1,12 +1,3 @@
-const socket = io();
-
-socket.on("players", (count) => {
-
-document.getElementById("playerCount").innerHTML =
-"Player Online: " + count;
-
-});
-
 const questions = [
 
 {
@@ -129,7 +120,7 @@ function loadQuestion(){
 const q = questions[currentQuestion];
 
 document.getElementById("question").innerHTML =
-"SOAL " + (currentQuestion + 1) + " / " + questions.length +
+"Soal " + (currentQuestion + 1) + " / " + questions.length +
 "<br><br>" + q.question;
 
 const answersDiv =
@@ -156,7 +147,7 @@ function checkAnswer(selected){
 const q = questions[currentQuestion];
 
 const buttons =
-document.querySelectorAll(".answers button");
+document.querySelectorAll("button");
 
 buttons.forEach(btn=>btn.disabled = true);
 
@@ -183,20 +174,22 @@ document.getElementById("result").innerHTML =
 
 }
 
+document.getElementById("score").innerHTML =
+"Score : " + score;
+
 setTimeout(()=>{
 
 currentQuestion++;
 
 if(currentQuestion < questions.length){
 
-document.getElementById("result").innerHTML =
-"";
+document.getElementById("result").innerHTML = "";
 
 loadQuestion();
 
 }else{
 
-showFinalResult();
+showFinal();
 
 }
 
@@ -204,37 +197,15 @@ showFinalResult();
 
 }
 
-function showFinalResult(){
-
-let grade = "";
-
-if(score >= 900){
-
-grade = "🏆 MASTER FIBER OPTIK";
-
-}else if(score >= 700){
-
-grade = "🥇 TEKNISI FIBER";
-
-}else if(score >= 500){
-
-grade = "🥈 TEKNISI JUNIOR";
-
-}else{
-
-grade = "🥉 SISWA MAGANG";
-
-}
+function showFinal(){
 
 document.querySelector(".container").innerHTML = `
 
-<h1>Quiz Selesai 🎉</h1>
+<h1>🎉 Quiz Selesai</h1>
 
 <h2>Score Akhir</h2>
 
 <h1>${score}</h1>
-
-<h2>${grade}</h2>
 
 <button onclick="location.reload()">
 Main Lagi

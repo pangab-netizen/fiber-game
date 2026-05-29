@@ -120,7 +120,9 @@ function loadQuestion(){
 const q = questions[currentQuestion];
 
 document.getElementById("question").innerHTML =
-"Soal " + (currentQuestion + 1) + " / " + questions.length +
+
+"Soal " + (currentQuestion + 1) +
+" / " + questions.length +
 "<br><br>" + q.question;
 
 const answersDiv =
@@ -130,7 +132,8 @@ answersDiv.innerHTML = "";
 
 q.answers.forEach((answer,index)=>{
 
-const button = document.createElement("button");
+const button =
+document.createElement("button");
 
 button.innerHTML = answer;
 
@@ -147,7 +150,7 @@ function checkAnswer(selected){
 const q = questions[currentQuestion];
 
 const buttons =
-document.querySelectorAll("button");
+document.querySelectorAll(".answers button");
 
 buttons.forEach(btn=>btn.disabled = true);
 
@@ -183,7 +186,8 @@ currentQuestion++;
 
 if(currentQuestion < questions.length){
 
-document.getElementById("result").innerHTML = "";
+document.getElementById("result").innerHTML =
+"";
 
 loadQuestion();
 
@@ -197,15 +201,90 @@ showFinal();
 
 }
 
+function kirimDataKeSpreadsheet(nama, skor){
+
+const urlJembatan =
+"https://script.google.com/macros/s/AKfycbxc4GkUzrXNQEDQyk87oJxHbMKDn5ht0bJhKsym6WggW8jcBA_OeowjnwB_LtOUf4Zh9A/exec";
+
+fetch(urlJembatan, {
+
+method:"POST",
+
+mode:"no-cors",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+nama:nama,
+skor:skor
+
+})
+
+})
+
+.then(()=>{
+
+console.log(
+"Data sukses dikirim ke Spreadsheet"
+);
+
+})
+
+.catch((error)=>{
+
+console.error(
+"Error pengiriman:",
+error
+);
+
+});
+
+}
+
 function showFinal(){
+
+const namaPlayer =
+prompt("Masukkan Nama Anda");
+
+kirimDataKeSpreadsheet(
+namaPlayer,
+score
+);
+
+let rank = "";
+
+if(score >= 900){
+
+rank = "🏆 MASTER FIBER OPTIK";
+
+}else if(score >= 700){
+
+rank = "🥇 TEKNISI FIBER";
+
+}else if(score >= 500){
+
+rank = "🥈 TEKNISI JUNIOR";
+
+}else{
+
+rank = "🥉 SISWA MAGANG";
+
+}
 
 document.querySelector(".container").innerHTML = `
 
 <h1>🎉 Quiz Selesai</h1>
 
+<h2>${namaPlayer}</h2>
+
 <h2>Score Akhir</h2>
 
 <h1>${score}</h1>
+
+<h2>${rank}</h2>
 
 <button onclick="location.reload()">
 Main Lagi
